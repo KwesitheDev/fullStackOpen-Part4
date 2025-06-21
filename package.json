@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    ,"start": "node --watch index.js"
+    "dev": "node index.js",
+    "start": "node --watch index.js",
+    "test": "node --test",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,9 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongoose": "^8.16.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "eslint": "^9.29.0"
   }
 }
