@@ -19,4 +19,21 @@ const totalLikes = (blogs) => {
     return total
 }
 
-export default {dummy, totalLikes}
+
+
+//Favourite blog 
+
+const favoriteBlog = (blogs) => {
+    if (blogs.length === 0){
+        return null
+    }
+    let fav = blogs[0]
+    for (const blog of blogs) {
+        if (blog.likes > fav.likes){
+            fav = blog
+        }
+    }
+    return fav
+}
+
+export default {dummy, totalLikes,favoriteBlog}
