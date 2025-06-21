@@ -41,8 +41,10 @@ const mostLikes = (blogs) => {
     if (blogs.length === 0){
         return null
     }
-    let mostLikedAuthor= null
+
     let most = blogs[0]
+    let mostLikedAuthor= most.author
+
 
     for (const blog of blogs) {
         if (blog.likes > most.likes) {
