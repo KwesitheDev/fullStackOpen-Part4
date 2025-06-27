@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node index.js",
-    "start": "node --watch index.js",
-    "test": "node --test",
+    "dev": "NODE_ENV=development node index.js",
+    "start": "NODE_ENV=production node --watch index.js",
+    "test": "NODE_ENV=test node --test",
     "lint": "eslint"
   },
   "repository": {
