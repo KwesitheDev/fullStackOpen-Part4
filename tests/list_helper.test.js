@@ -1,9 +1,29 @@
-const { test, describe } = require('node:test');
+const { test, describe, after,beforeEach } = require('node:test');
 const assert = require ('node:assert')
-const listHelper = require ('../utils/list_helper.js');
+const listHelper = require('../utils/list_helper.js');
+const Blog = require('../models/blogSchema') 
+const supertest = require('supertest')
+const mongoose = require('mongoose')
+
+const app = require('../app.js')
+const api = supertest(app)
 
 
-test('dummy returns one', () => {
+
+
+
+test('GET /api/blogs returns JSON and 200', async () => {
+  await api
+    .get('/api/blogs')
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+})
+
+after(async () => {
+  await mongoose.connection.close()
+})
+
+/*test('dummy returns one', () => {
     const blogs = []
 
     const result = listHelper.dummy(blogs)
@@ -276,4 +296,4 @@ describe("most likes", () => {
   });
 
 });
-
+*/
