@@ -8,7 +8,9 @@ const mongoose = require('mongoose')
 const app = require('../app.js')
 const api = supertest(app)
 
-
+beforeEach(async () => {
+  await Blog.deleteMany({})
+})
 
 
 
