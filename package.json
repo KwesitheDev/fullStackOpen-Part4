@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
-  "scripts": {
+    "scripts": {
     "dev": "NODE_ENV=development node index.js",
     "start": "NODE_ENV=production node --watch index.js",
     "test": "NODE_ENV=test node --test",
