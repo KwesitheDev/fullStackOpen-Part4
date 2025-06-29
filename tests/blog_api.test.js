@@ -53,6 +53,24 @@ describe('when there is initially one blog in the db', () => {
         if (!titles.includes(newBlog.title)) {
             throw new Error('New blog title not found in database')
         }
+    
+    
+    })
+
+    test('a blog can be deleted', async () => {
+        const blogsAtStart = await helper.blogInDb()
+        const blogToDelete = blogsAtStart[0]
+
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            .expect(204)
+
+        const blogsAtEnd = await helper.blogInDb()
+        const ids = blogsAtEnd.map(b => b.id)
+
+        if (ids.includes(blogToDelete.id)) {
+            throw new Error('Deleted blog still exists in database')
+        }
     })
 })
 
