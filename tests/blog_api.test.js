@@ -58,11 +58,11 @@ describe('when there is initially one blog in the db', () => {
     })
 
     test('a blog can be deleted', async () => {
-        const blogsAtStart = await helper.blogInDb()
-        const blogToDelete = blogsAtStart[0]
+        
+        const blogToDelete = await helper.getFirstBlogID()
 
         await api
-            .delete(`/api/blogs/${blogToDelete.id}`)
+            .delete(`/api/blogs/${blogToDelete}`)
             .expect(204)
 
         const blogsAtEnd = await helper.blogInDb()
