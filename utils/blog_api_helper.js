@@ -17,8 +17,14 @@ const resetDbWithInitialBlog = async () => {
   await blog.save();
 };
 
+const getFirstBlogID = async () => {
+    const blogs = await blogInDb()
+    return blogs[0].id
+}
+
 module.exports = {
   initialBlog,
   blogInDb,
-  resetDbWithInitialBlog,
+    resetDbWithInitialBlog,
+  getFirstBlogID
 };
