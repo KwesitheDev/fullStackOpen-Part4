@@ -56,7 +56,10 @@ test('blog can be added via post', async () => {
     }
 
     
-    
+    const titles = allBlogs.map(b => b.title)
+    if (!titles.includes(newBlog.title)) {
+        throw new Error('New blog title not found in database')
+    }
 })
 
 
