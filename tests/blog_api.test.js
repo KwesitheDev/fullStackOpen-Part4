@@ -31,6 +31,36 @@ test('blog posts have property id', async () => {
 
 })
 
+test('blog can be added via post', async () => {
+    const initialBlogs = await Blog.find({})
+
+    const newBlog = {
+        title: 'another test',
+        author: 'KwesitheDev',
+        url: 'kwesithedev.me',
+        likes: 15
+    }
+
+    await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+    
+    
+    const allBlogs = await Blog.find({})
+
+    console.log(`Current length: ${allBlogs.length} ---- Previous length: ${initialBlogs.length}`)
+    if (allBlogs.length !== initialBlogs.length + 1) {
+        throw new Error('Blog count did not increase')
+    }
+
+    
+    
+})
+
+
+
 
 after(async () => {
     await mongoose.connection.close()
