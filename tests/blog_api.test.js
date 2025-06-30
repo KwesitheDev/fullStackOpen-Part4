@@ -72,6 +72,33 @@ describe('when there is initially one blog in the db', () => {
             throw new Error('Deleted blog still exists in database')
         }
     })
+
+    test('a blog can be updated with PUT', async () => {
+    const blogsAtStart = await helper.blogInDb()
+    const blogToUpdate = blogsAtStart[0]
+
+    const updatedData = {
+        title: 'Updated Title',
+        author: blogToUpdate.author,
+        url: blogToUpdate.url,
+        likes: blogToUpdate.likes + 10
+    }
+
+    const response = await api
+        .put(`/api/blogs/${blogToUpdate.id}`)
+        .send(updatedData)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+
+    if (response.body.likes !== updatedData.likes) {
+        throw new Error('Blog likes not updated correctly')
+    }
+
+    if (response.body.title !== updatedData.title) {
+        throw new Error('Blog title not updated correctly')
+    }
+})
+
 })
 
 after(async () => {
