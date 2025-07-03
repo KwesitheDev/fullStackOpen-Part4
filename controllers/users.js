@@ -18,6 +18,4 @@ usersRouter.post('/', async (req, res) => {
     res.status(201).json(savedUser)
 })
 
-module.exports = {
-    usersRouter
-}
+module.exports = usersRouter
