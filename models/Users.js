@@ -10,10 +10,10 @@ const userSchema = new mongoose.Schema({
         unique: true,
         type: String
     },
-    passwordHash
+    passwordHash: String
 })
 
-userSchema.set('toJson', {
+userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
@@ -24,6 +24,4 @@ userSchema.set('toJson', {
 
 const User = mongoose.model('user', userSchema)
 
-module.exports = {
-    User
-}
+module.exports = User
