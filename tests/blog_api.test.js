@@ -7,7 +7,7 @@ const helper = require('../utils/blog_api_helper')
 const Blog = require('../models/blogSchema')
 const config = require('../utils/config')
 
-before(async () => {
+beforeAll(async () => {
     await mongoose.connect(config.MONGODB_URI)
 })
 
