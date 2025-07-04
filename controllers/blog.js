@@ -1,6 +1,7 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blogSchema')
 const { User } = require('../models/Users') 
+const {userExtractor} = require('../utils/tokenExtractor')
 
 
 blogsRouter.get('/', async (req, res) => {
@@ -11,14 +12,12 @@ blogsRouter.get('/', async (req, res) => {
     res.json(blogs)
 })
 
-blogsRouter.post('/', async (req, res) => {
+blogsRouter.post('/', userExtractor, async (req, res) => {
     const { title, author, url, likes } = req.body
 
-    const users = await User.find({})
-    const user = users[0] 
-
+    const user = await User.findById(req.user.id)
     if (!user) {
-        return res.status(400).json({ error: 'No users found to assign as blog creator' })
+        return res.status(401).json({ error: 'invalid user' })
     }
 
     const blog = new Blog({
@@ -30,13 +29,12 @@ blogsRouter.post('/', async (req, res) => {
     })
 
     const savedBlog = await blog.save()
-
-    // Add blog to user's blog list
     user.blogs = user.blogs.concat(savedBlog._id)
     await user.save()
 
     res.status(201).json(savedBlog)
 })
+
 
 blogsRouter.delete('/:id', async (req, res) => {
     const id = req.params.id
